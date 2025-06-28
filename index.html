@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ob La Di Café</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1> Welcome to OB LA DI Café</h1>
+  <h3>—  M E N U S  —</h3>
+  <div id="categories-with-images"></div>
+
+  <script src="data.js"></script>
+  <script>
+    const container = document.getElementById("categories-with-images");
+
+    const categoryImages = {
+      Hot_Drinks: "images/products/hotdrinks.jpeg",
+      Smoothies: "images/products/smoothies.jpeg",
+      Fresh_juice: "images/products/freshjuice.jpeg",
+      milk_shake: "images/products/milkshake.jpeg",
+      frappes: "images/products/frappes.jpeg",
+      desserts: "images/products/dessert.jpeg",
+      breakfast: "images/products/breakfast.jpeg",
+      sandwiches: "images/products/sandwiches.jpeg",
+      chocolate: "images/products/chocolate.jpeg",
+      cocktails: "images/products/cocktails.jpeg",
+      softDrinks: "images/products/softdrinks.jpeg",
+      ice: "images/products/ice.jpeg",
+      addOns: "images/products/addons.jpeg"
+    };
+
+    for (const category in menuData) {
+      const card = document.createElement("div");
+      card.className = "category-card";
+
+      const img = document.createElement("img");
+      img.src = categoryImages[category] || "images/default.png";
+      img.alt = category;
+
+      const overlay = document.createElement("div");
+      overlay.className = "category-overlay";
+
+      const title = document.createElement("h3");
+      title.textContent = category.replace(/_/g, " ");
+
+      const button = document.createElement("button");
+      button.className = "button"; 
+      button.textContent = "Go to Menu";
+      button.onclick = () => {
+        window.location.href = `products.html?category=${encodeURIComponent(category)}`;
+      };
+
+      overlay.appendChild(title);
+      overlay.appendChild(button);
+
+      card.appendChild(img);
+      card.appendChild(overlay);
+
+      container.appendChild(card);
+    }
+  </script>
+<img src="./images/ob la di logo.png"  class="fixed-bottom-logo" />
+
+</body>
+</html>

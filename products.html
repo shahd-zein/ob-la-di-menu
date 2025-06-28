@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>menu lest </title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="products-container">
+    <h1 id="category-title"> loading...</h1>
+    <div id="products-grid"></div>
+  </div>
+
+  <script src="data.js"></script>
+
+  <script>
+    const navbar = document.getElementById("navbar");
+    const params = new URLSearchParams(window.location.search);
+    const categoryKey = params.get("category");
+    const title = document.getElementById("category-title");
+    const productsGrid = document.getElementById("products-grid");
+
+    for (const category in menuData) {
+      const btn = document.createElement("button");
+      btn.className = "nav-link";
+      btn.textContent = category.replace(/_/g, " ");
+      btn.onclick = () => {
+        window.location.href = `products.html?category=${encodeURIComponent(category)}`;
+      };
+      navbar.appendChild(btn);
+    }
+
+    if (menuData[categoryKey]) {
+      title.textContent = categoryKey.replace(/_/g, " ");
+      menuData[categoryKey].forEach(item => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+    card.innerHTML = `
+  <h3 class="product-name-en">${item.name_en}</h3>
+  <p class="product-price">${item.price ? item.price + ' EGP' : 'السعر غير محدد'}</p>
+  <p class="product-name-ar">${item.name_ar}</p>
+`;
+
+
+        productsGrid.appendChild(card);
+      });
+    } else {
+      title.textContent = "Back soon";
+    }
+  </script>
+  <img src="./images/ob la di logo.png"  class="fixed-bottom-logo" />
+<!-- <div class="fixed-bottom-slogan">السعادة_في_كوباية#</div> -->
+<div class="contact-box">
+  <div class="line">
+    <span class="small-loader"></span>
+    <p>116 جميرال مول سهل حمزة هرم</p>
+  </div>
+  <p>⌛ 24/7</p>
+  <p>📞 0114 768 9271</p>
+</div>
+
+
+</body>
+</html>
